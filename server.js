@@ -1,4 +1,12 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,6 +21,7 @@ const api_1 = __importDefault(require("./router/api"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const LocalStrategy = passport_local_1.default.Strategy;
 const env_1 = require("./.config/env");
+const database_helpers_1 = __importDefault(require("./lib/helpers/database-helpers"));
 class Server {
     constructor() {
         this.port = 3000;
@@ -45,6 +54,18 @@ class Server {
                 }
                 return done(null, user);
             });
+        }));
+        passport_1.default.serializeUser(function (user, done) {
+            done(null, user.id);
+        });
+        passport_1.default.deserializeUser((id, done) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let user = yield database_helpers_1.default.findUserById(id);
+                done(null, user);
+            }
+            catch (e) {
+                done(e);
+            }
         }));
     }
     routes() {

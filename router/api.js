@@ -24,7 +24,7 @@ apiRouter.post('/user', (req, res) => __awaiter(this, void 0, void 0, function* 
             res.json({ error: 'Username already taken' });
         else
             createdUser = yield database_helpers_1.default.createNewUser(username, password);
-        res.json(createdUser);
+        res.json({ message: 'User Registered' });
     }
     catch (e) {
         res.json({ error: e });

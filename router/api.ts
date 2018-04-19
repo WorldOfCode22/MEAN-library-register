@@ -12,7 +12,7 @@ apiRouter.post('/user', async (req, res) => {
     let user = await databaseHelpers.findUserByUsername(username)
     if (user) res.json({error: 'Username already taken'})
     else createdUser = await databaseHelpers.createNewUser(username, password)
-    res.json(createdUser)
+    res.json({message: 'User Registered'})
   } catch (e) {
     res.json({error: e})
   }

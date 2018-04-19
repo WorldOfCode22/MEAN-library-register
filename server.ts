@@ -1,5 +1,5 @@
 import express from 'express'
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 import passport from 'passport'
 import passportLocal from 'passport-local'
 import cookieSession from 'cookie-session'
@@ -10,6 +10,7 @@ import bodyParser from 'body-parser'
 const LocalStrategy = passportLocal.Strategy
 
 import {dev} from './.config/env' 
+import databaseHelpers from './lib/helpers/database-helpers';
 class Server {
   public app: express.Application
   private port: number = 3000
@@ -41,6 +42,19 @@ class Server {
         });
       }
     ));
+
+    passport.serializeUser(function(user : Document, done) {
+      done(null, user.id);
+    });
+
+    passport.deserializeUser( async (id: string, done)=>{
+      try {
+        let user = await databaseHelpers.findUserById(id)
+        done(null, user)
+      } catch (e) {
+        done(e)
+      }
+    })
   }
 
   public routes(){

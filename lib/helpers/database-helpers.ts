@@ -4,13 +4,23 @@ let databaseHelpers = {
   findUserByUsername: async (username: string) : Promise<any> => {
     return new Promise<any>((resolve, reject) : any => {
       UserModel.findOne({username}, (err, doc) => {
-        if (err) reject(new Error('Error getting document'))
+        if (err) reject(new Error('Could not fetch user collection'))
         else if (doc) resolve(doc)
         else resolve (null)
       })
     })
   },
 
+  findUserById: async (id: string) => {
+    return new Promise<any>((resolve, reject) => {
+      UserModel.findById(id, (err, doc) => {
+        if (err) reject (new Error('Could not fetch user collection'))
+        else if (doc) resolve(doc)
+        else resolve(null)
+      })
+    })
+  },
+  
   createNewUser: async (username: string, password: string) => {
     return new Promise<any>((resolve, reject) => {
       let newUser = new UserModel({username, password})
