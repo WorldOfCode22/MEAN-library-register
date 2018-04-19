@@ -4,7 +4,7 @@ import passport from 'passport'
 import passportLocal from 'passport-local'
 import cookieSession from 'cookie-session'
 import UserModel from './models/user'
-import apiRouter from './router/api'
+import homeRouter from './router/home'
 import bodyParser from 'body-parser'
 
 const LocalStrategy = passportLocal.Strategy
@@ -58,7 +58,7 @@ class Server {
   }
 
   public routes(){
-    this.app.use('/api', apiRouter)
+    this.app.use('/', homeRouter)
   }
 }
 
