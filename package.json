@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/WorldOfCode22/MEAN-library-register#readme",
   "dependencies": {
-    "@types/dotenv": "^4.0.3",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.0.15"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.0.10",
     "@types/express": "^4.11.1"
   }
 }
