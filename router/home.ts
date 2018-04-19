@@ -2,9 +2,9 @@ import express from 'express'
 import UserModel from '../models/user'
 import databaseHelpers from '../lib/helpers/database-helpers'
 
-let apiRouter = express.Router()
+let homeRouter = express.Router()
 
-apiRouter.post('/user', async (req, res) => {
+homeRouter.post('/register', async (req, res) => {
   try {
     let username : string = req.body.username
     let password : string = req.body.password
@@ -18,4 +18,4 @@ apiRouter.post('/user', async (req, res) => {
   }
 })
 
-export default apiRouter
+export default homeRouter
