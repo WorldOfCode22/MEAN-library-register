@@ -4,7 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var dotenv_1 = __importDefault(require("dotenv"));
+var mongoose_1 = __importDefault(require("mongoose"));
+var env_1 = require("./.config/env");
 var Server = /** @class */ (function () {
     function Server() {
         this.port = 3000;
@@ -13,7 +14,9 @@ var Server = /** @class */ (function () {
         this.routes();
     }
     Server.prototype.config = function () {
-        dotenv_1.default.config();
+        mongoose_1.default.connect(env_1.dev.mongoURL)
+            .then(function () { console.log('Database Connected'); })
+            .catch(function (err) { console.log('Database Connection Error: ' + err); });
         // middleware
     };
     Server.prototype.routes = function () {

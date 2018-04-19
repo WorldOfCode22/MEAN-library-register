@@ -1,5 +1,6 @@
 import express from 'express'
-import dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import {dev} from './.config/env' 
 class Server {
   public app: express.Application
   private port: number = 3000
@@ -10,7 +11,9 @@ class Server {
   }
 
   public config(){
-    dotenv.config()
+    mongoose.connect(dev.mongoURL)
+    .then(() => { console.log('Database Connected') })
+    .catch((err) => { console.log('Database Connection Error: ' + err)})
     // middleware
   }
 
